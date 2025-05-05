@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} dark`}>
         <Providers>
           <div className="min-h-screen bg-background">
             <Navbar />
