@@ -11,6 +11,8 @@ export const authService = {
     // return response.data;
     
     // Mock implementation
+    const response = await api.post('/api/auth/login', credentials);
+    return response.data;
 
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -40,23 +42,7 @@ export const authService = {
     
     // Mock implementation
     const response = await api.post('/api/auth/register', credentials);
-    console.log("==> ",response.data);
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          user: {
-            id: '1',
-            name: credentials.name,
-            email: credentials.email,
-            requestsUsed: 0,
-            requestLimit: 1000,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-          },
-          token: 'mock-jwt-token',
-        });
-      }, 500);
-    });
+    return response.data;
   },
   
   async getCurrentUser(): Promise<User> {

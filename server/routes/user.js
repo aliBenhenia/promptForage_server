@@ -8,7 +8,7 @@ const router = express.Router();
 // @access  Private
 router.put('/profile', async (req, res) => {
   try {
-    const { name, email } = req.body;
+    const { name, email , password} = req.body;
     const user = req.user;
     
     // Check if email is already taken (if changing email)
@@ -18,7 +18,6 @@ router.put('/profile', async (req, res) => {
         return res.status(400).json({ error: 'Email already in use' });
       }
     }
-    
     // Update user
     user.name = name || user.name;
     user.email = email || user.email;

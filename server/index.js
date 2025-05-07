@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 // Routes
 const authRoutes = require('./routes/auth');
@@ -31,6 +32,8 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/promptfor
 
 // Middleware
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('dev'));
 

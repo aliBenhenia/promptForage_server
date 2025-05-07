@@ -42,7 +42,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      const { user, token } = await authService.login(email, password);
+      const { user, token } = await authService.login({email, password});
       localStorage.setItem('token', token);
       setUser(user);
       router.push('/dashboard');
@@ -56,7 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const register = async (name: string, email: string, password: string) => {
     setIsLoading(true);
     try {
-      const { user, token } = await authService.register(name, email, password);
+      const { user, token } = await authService.register({name, email, password});
       localStorage.setItem('token', token);
       setUser(user);
       router.push('/dashboard');

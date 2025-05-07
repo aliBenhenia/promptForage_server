@@ -61,10 +61,11 @@ export default function RegisterPage() {
       });
     } catch (error) {
       console.error('Registration error:', error);
+      console.log('Registration error:', error.response.data.error);
       toast({
         variant: 'destructive',
         title: 'Registration failed',
-        description: 'There was an error creating your account. Please try again.',
+        description: error.response.data.error || "somthing wrong!"
       });
     } finally {
       setIsLoading(false);
