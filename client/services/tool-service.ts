@@ -57,8 +57,8 @@ export const toolService = {
     // For now, we'll use the sample data
     
     // Uncomment below when backend is ready
-    // const response = await api.get('/tools');
-    // return response.data;
+    const response = await api.get('api/tools');
+    return response.data;
     
     // Mock implementation
     return new Promise((resolve) => {
@@ -121,8 +121,8 @@ export const toolService = {
     // For now, we'll use the sample data
     
     // Uncomment below when backend is ready
-    // const response = await api.get('/tools/history');
-    // return response.data;
+    const response = await api.get('api/tools/history');
+    return response.data;
     
     // Mock implementation
     return new Promise((resolve) => {

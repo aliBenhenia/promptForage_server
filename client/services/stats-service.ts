@@ -18,10 +18,12 @@ export const statsService = {
     // For now, we'll use simulated data
     
     // Uncomment below when backend is ready
-    // const response = await api.get('/stats/usage');
-    // return response.data;
+    const response = await api.get('/api/stats/usage');
+    return response.data;
     
     // Generate the last 7 days
+
+
     const days = 7;
     const dailyUsage: DailyUsage[] = [];
     const now = new Date();

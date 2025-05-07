@@ -8,7 +8,7 @@ const router = express.Router();
 const tools = [
   {
     id: 'explain-code',
-    name: 'Explain Code',
+    name: 'Explain Code from server',
     description: 'Get a clear explanation of what your code does',
     icon: 'code',
     placeholderPrompt: 'function calculateTotal(items) {\n  return items.reduce((sum, item) => sum + item.price, 0);\n}',
