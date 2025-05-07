@@ -11,6 +11,7 @@ export const authService = {
     // return response.data;
     
     // Mock implementation
+
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({
@@ -38,6 +39,8 @@ export const authService = {
     // return response.data;
     
     // Mock implementation
+    const response = await api.post('/api/auth/register', credentials);
+    console.log("==> ",response.data);
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({
