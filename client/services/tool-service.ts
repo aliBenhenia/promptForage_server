@@ -127,13 +127,13 @@ export const toolService = {
     // if (!user)
     //   return ;
 
-    const response = await api.get('api/tools/history', {
-      params: {
-        userId: user.id,
-      },
-    });
-    return response.data;
-    
+   const response = await api.get('api/tools/history', {
+  params: {
+    userId: user.id,
+  },
+});
+return response.data;
+
     
     // Mock implementation
     return new Promise((resolve) => {

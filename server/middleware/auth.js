@@ -11,6 +11,9 @@ const auth = async (req, res, next) => {
     }
     
     // Verify token
+    // geneaarte secret key random now
+    // const secretKey = crypto.randomBytes(32).toString('hex');
+    console.log('Secret Key:', process.env.JWT_SECRET);
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret');
     
     // Find user
@@ -21,8 +24,11 @@ const auth = async (req, res, next) => {
     }
     
     // Set user in request object
+    
     req.user = user;
+    
     next();
+    // print 
   } catch (error) {
     console.error('Auth middleware error:', error);
     res.status(401).json({ error: 'Token is not valid' });
