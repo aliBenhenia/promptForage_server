@@ -1,7 +1,8 @@
 // This is the implementation of the AI prompt forwarder using DeepSeek AI
 const fetch = require('node-fetch');
 
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+// const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+const OPENROUTER_API_KEY = "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";
 const SITE_URL = process.env.SITE_URL || 'https://promptforge.dev';
 const SITE_NAME = 'PromptForge';
 
@@ -17,7 +18,8 @@ const processPrompt = async (toolId, prompt) => {
   try {
     if (!OPENROUTER_API_KEY) {
       console.warn('OPENROUTER_API_KEY not set, using mock responses');
-      return getMockResponse(toolId, prompt);
+      // return getMockResponse(toolId, prompt);
+      return ("you cannnot access api");
     }
 
     const formattedPrompt = toolPrompts[toolId](prompt);

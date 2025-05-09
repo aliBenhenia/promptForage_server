@@ -89,31 +89,31 @@ export const toolService = {
     // For now, we'll use simulated responses
     
     // Uncomment below when backend is ready
-    // const response = await api.post(`/tools/${toolId}/prompt`, { prompt });
-    // return response.data;
+    const response = await api.post(`/api/tools/${toolId}/prompt`, { prompt });
+    return response.data;
     
     // Mock implementation with tool-specific responses
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        let response;
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     let response;
         
-        switch (toolId) {
-          case 'explain-code':
-            response = `This code ${prompt.includes('function') ? 'defines a function' : 'is a'} that ${prompt.includes('reduce') ? 'uses the reduce method to calculate a sum' : 'performs some operations'}.`;
-            break;
-          case 'fix-bug':
-            response = `There are a few issues with your code:\n\n1. ${prompt.includes('for') ? 'Your loop could be optimized' : 'You might want to add error handling'}\n2. ${prompt.includes('if') ? 'Your conditional logic could be improved' : 'Consider adding validation'}\n\nHere's the fixed version:\n\n\`\`\`javascript\n${prompt.replace(/arr\[i\]/g, 'arr[j]').replace(/arr\[j\]/g, 'arr[i]')}\n\`\`\``;
-            break;
-          case 'generate-regex':
-            response = `Here's a regex pattern for your needs:\n\n\`\`\`\n${prompt.includes('email') ? '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' : '\\b[A-Z0-9._%+-]+\\b'}\n\`\`\`\n\nThis pattern validates the requirements you specified.`;
-            break;
-          default:
-            response = "I've processed your prompt and here's the response.";
-        }
+    //     switch (toolId) {
+    //       case 'explain-code':
+    //         response = `This code ${prompt.includes('function') ? 'defines a function' : 'is a'} that ${prompt.includes('reduce') ? 'uses the reduce method to calculate a sum' : 'performs some operations'}.`;
+    //         break;
+    //       case 'fix-bug':
+    //         response = `There are a few issues with your code:\n\n1. ${prompt.includes('for') ? 'Your loop could be optimized' : 'You might want to add error handling'}\n2. ${prompt.includes('if') ? 'Your conditional logic could be improved' : 'Consider adding validation'}\n\nHere's the fixed version:\n\n\`\`\`javascript\n${prompt.replace(/arr\[i\]/g, 'arr[j]').replace(/arr\[j\]/g, 'arr[i]')}\n\`\`\``;
+    //         break;
+    //       case 'generate-regex':
+    //         response = `Here's a regex pattern for your needs:\n\n\`\`\`\n${prompt.includes('email') ? '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' : '\\b[A-Z0-9._%+-]+\\b'}\n\`\`\`\n\nThis pattern validates the requirements you specified.`;
+    //         break;
+    //       default:
+    //         response = "I've processed your prompt and here's the response.";
+    //     }
         
-        resolve({ response });
-      }, 1000);
-    });
+    //     resolve({ response });
+    //   }, 1000);
+    // });
   },
   
   async getRequestHistory(): Promise<PromptRequest[]> {
@@ -121,7 +121,15 @@ export const toolService = {
     // For now, we'll use the sample data
     
     // Uncomment below when backend is ready
-    const response = await api.get('api/tools/history');
+    const userL = localStorage.getItem('user');
+    const user = userL ? JSON.parse(userL) : null;
+    console.log(user)
+    // if (!user)
+    //   return ;
+
+    const response = await api.get('api/tools/history',params: {
+      userId: user.id, // Send userId as a query parameter
+    });
     return response.data;
     
     // Mock implementation

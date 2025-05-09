@@ -82,6 +82,7 @@ export default function ToolsPage() {
     
     try {
       const result = await toolService.submitPrompt(selectedTool.id, prompt);
+      console.log("==> ",result);
       setResponse(result.response);
       toast({
         title: 'Prompt submitted successfully',

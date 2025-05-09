@@ -78,6 +78,7 @@ router.post('/:id/prompt', checkRateLimit, async (req, res) => {
     const response = await promptForwarder.processPrompt(id, prompt);
     
     // Save request to database
+    // console.log("hello")
     const promptRequest = new PromptRequest({
       user: req.user._id,
       toolId: id,
@@ -103,7 +104,7 @@ router.get('/history', async (req, res) => {
     const history = await PromptRequest.find({ user: req.user._id })
       .sort({ createdAt: -1 })
       .limit(50);
-    
+    console.log()
     res.json(history);
   } catch (error) {
     console.error('Get history error:', error);
