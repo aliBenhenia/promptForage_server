@@ -12,24 +12,12 @@ export const authService = {
     
     // Mock implementation
     const response = await api.post('/api/auth/login', credentials);
+    localStorage.setItem('user', JSON.stringify(response.data.user));
+    console.log('Login response:', response.data.user);
+    localStorage.setItem('token', response.data.token);
     return response.data;
 
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          user: {
-            id: '1',
-            name: 'Test User',
-            email: credentials.email,
-            requestsUsed: 0,
-            requestLimit: 1000,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-          },
-          token: 'mock-jwt-token',
-        });
-      }, 500);
-    });
+    
   },
   
   async register(credentials: RegisterCredentials): Promise<AuthResponse> {
@@ -50,22 +38,8 @@ export const authService = {
     // For now, we'll use a simulated response
     
     // Uncomment below when backend is ready
-    // const response = await api.get('/auth/me');
-    // return response.data;
+    const response = await api.get('/api/auth/me');
+    return response.data;
     
-    // Mock implementation
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-          id: '1',
-          name: 'Test User',
-          email: 'user@example.com',
-          requestsUsed: 125,
-          requestLimit: 1000,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        });
-      }, 500);
-    });
   },
 };

@@ -12,6 +12,7 @@ import { useAuth } from '@/context/auth-context';
 import { statsService, UsageStats } from '@/services/stats-service';
 import { toolService } from '@/services/tool-service';
 import { PromptRequest, Tool } from '@/types/tool';
+import { RequestHistory } from '@/components/RequestHistory';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -263,34 +264,11 @@ export default function DashboardPage() {
         <CardContent>
           {recentRequests.length > 0 ? (
             <div className="space-y-6">
-              {recentRequests.map((request) => (
-                <div key={request.id} className="flex flex-col space-y-2">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center">
-                      <div className="p-2 rounded-md bg-muted mr-3">
-                        <Clock className="h-4 w-4 text-muted-foreground" />
-                      </div>
-                      <div>
-                        <p className="font-medium">{getToolNameById(request.toolId)}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {new Date(request.createdAt).toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="pl-10">
-                    <div className="bg-muted p-3 rounded-md text-sm">
-                      <p className="font-semibold mb-1">Prompt:</p>
-                      <pre className="whitespace-pre-wrap font-mono text-xs bg-background p-2 rounded border border-border overflow-x-auto">
-                        {request.prompt.length > 100 
-                          ? `${request.prompt.substring(0, 100)}...` 
-                          : request.prompt}
-                      </pre>
-                    </div>
-                  </div>
-                </div>
-              ))}
+              {/* Display each request */}
+              <RequestHistory recentRequests={recentRequests} 
+                getToolNameById={getToolNameById} 
+                // setSelected={() => {}} // Placeholder for request selection
+              />
             </div>
           ) : (
             <div className="text-center py-6">
@@ -300,6 +278,7 @@ export default function DashboardPage() {
               </Link>
             </div>
           )}
+          
         </CardContent>
       </Card>
     </div>

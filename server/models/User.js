@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
   },
   requestLimit: {
     type: Number,
-    default: 1000,
+    default: 10,
   },
   createdAt: {
     type: Date,

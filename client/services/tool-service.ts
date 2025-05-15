@@ -122,16 +122,16 @@ export const toolService = {
     
     // Uncomment below when backend is ready
     const userL = localStorage.getItem('user');
+    // const user = userL ? JSON.parse(userL) : null;
     const user = userL ? JSON.parse(userL) : null;
-    console.log(user)
+    console.log(user.email);
     // if (!user)
     //   return ;
 
-   const response = await api.get('api/tools/history', {
-  params: {
-    userId: user.id,
-  },
+   const response = await api.post('/api/tools/history', {
+  email: user.email,
 });
+console.log("my list=> ",response.data);
 return response.data;
 
     

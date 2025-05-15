@@ -52,6 +52,12 @@ router.put('/password', async (req, res) => {
     const user = await User.findById(req.user._id).select('+password');
     
     // Check if current password is correct
+    if (!currentPassword || !newPassword)
+      return res.status(400).json({ error: 'Current password and new password are required' });
+    if (currentPassword === newPassword)
+      return res.status(400).json({ error: 'New password cannot be the same as current password' });
+    if (newPassword.length < 6)
+      return res.status(400).json({ error: 'New password must be at least 6 characters long' });
     const isMatch = await user.comparePassword(currentPassword);
     
     if (!isMatch) {

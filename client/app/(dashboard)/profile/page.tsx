@@ -22,6 +22,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/context/auth-context';
+import userService from '@/services/user-service';
 
 const profileFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -41,7 +42,7 @@ type ProfileFormValues = z.infer<typeof profileFormSchema>;
 type PasswordFormValues = z.infer<typeof passwordFormSchema>;
 
 export default function ProfilePage() {
-  const { user } = useAuth();
+  const { user,updateProfile } = useAuth();
   const { toast } = useToast();
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
   const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
@@ -67,27 +68,68 @@ export default function ProfilePage() {
     setIsUpdatingProfile(true);
     
     // Simulate API call
-    setTimeout(() => {
+    // setTimeout(() => {
+    //   toast({
+    //     title: 'Profile updated',
+    //     description: 'Your profile has been updated successfully.',
+    //   });
+    //   setIsUpdatingProfile(false);
+    // }, 1000);
+    
+     try {
+      setIsUpdatingProfile(true);
+      await updateProfile(data.name, data.email);
       toast({
         title: 'Profile updated',
         description: 'Your profile has been updated successfully.',
       });
       setIsUpdatingProfile(false);
-    }, 1000);
+      profileForm.reset();
+    } catch (error) {
+      toast({
+        title: 'Error updating profile',
+        description: 'There was an error updating your profile. Please try again.',
+        variant: 'destructive',
+      });
+    }
   };
   
   const onPasswordSubmit = async (data: PasswordFormValues) => {
     setIsUpdatingPassword(true);
-    
-    // Simulate API call
-    setTimeout(() => {
+    if (data.newPassword !== data.confirmPassword) {
+      toast({
+        title: 'Error',
+        description: "New password and confirmation don't match",
+        variant: 'destructive',
+      });
+      setIsUpdatingPassword(false);
+      return;
+    }
+    if (!data.currentPassword || !data.newPassword || !data.confirmPassword) {
+      toast({
+        title: 'Error',
+        description: 'All fields are required',
+        variant: 'destructive',
+      });
+      setIsUpdatingPassword(false);
+      return;
+    }
+    try {
+      await userService.updatePassword(data.currentPassword, data.newPassword);
       toast({
         title: 'Password updated',
         description: 'Your password has been updated successfully.',
       });
       setIsUpdatingPassword(false);
       passwordForm.reset();
-    }, 1000);
+    } catch (error) {
+      toast({
+        title: 'Error updating password',
+        description: 'There was an error updating your password. Please try again.',
+        variant: 'destructive',
+      });
+      setIsUpdatingPassword(false);
+    }
   };
   
   return (

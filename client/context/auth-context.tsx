@@ -4,13 +4,14 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { useRouter } from 'next/navigation';
 import { authService } from '@/services/auth-service';
 import { User } from '@/types/user';
-
+import userService from '@/services/user-service';
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
   logout: () => void;
+  updateProfile: (name: string, email: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -72,9 +73,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
     router.push('/login');
   };
-
+  const updateProfile = async (name: string, email: string) => {
+      try {
+        const updatedUser = await userService.updateProfile(name, email);
+        setUser(updatedUser);
+      } catch (error) {
+        console.error('Error updating profile:', error);
+      }
+  }
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, logout, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );
