@@ -7,7 +7,7 @@ import { Terminal, Eye, EyeOff } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-
+import { AxiosError } from 'axios';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -60,12 +60,12 @@ export default function RegisterPage() {
         description: 'You have successfully registered an account.',
       });
     } catch (error) {
-      console.error('Registration error:', error);
-      console.log('Registration error:', error.response.data.error);
+      // console.error('Registration error:', error);
+      const err = error as AxiosError<{ error: string }>;
       toast({
         variant: 'destructive',
         title: 'Registration failed',
-        description: error.response.data.error || "somthing wrong!"
+        description: err.response?.data?.error || 'An error occurred during registration. Please try again.',
       });
     } finally {
       setIsLoading(false);

@@ -20,7 +20,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/context/auth-context';
-
+import { AxiosError } from 'axios';
 const formSchema = z.object({
   email: z.string().email('Invalid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
@@ -53,10 +53,12 @@ export default function LoginPage() {
       });
     } catch (error) {
       console.error('Login error:', error);
+        const err = error as AxiosError<{ error: string }>;
+
       toast({
         variant: 'destructive',
         title: 'Login failed',
-        description: error.response.data.error|| 'Invalid email or password. Please try again.',
+    description: err.response?.data?.error || 'Invalid email or password. Please try again.',
       });
     } finally {
       setIsLoading(false);

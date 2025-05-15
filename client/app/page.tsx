@@ -44,32 +44,35 @@ export default function Home() {
                 <div className="relative flex items-center justify-center">
                   <div className="bg-card/60 backdrop-blur-sm border border-border rounded-xl shadow-xl p-6 w-full max-w-lg">
                     <pre className="font-mono text-xs sm:text-sm md:text-base bg-black/80 rounded-lg p-4 overflow-x-auto">
-                      <code className="text-gray-200">
-                        <span className="text-purple-400">function</span>{" "}
-                        <span className="text-blue-400">calculateTotal</span>
-                        <span className="text-gray-400">(</span>
-                        <span className="text-orange-400">items</span>
-                        <span className="text-gray-400">) {`{`}</span>
-                        <br />
-                        {"  "}
-                        <span className="text-purple-400">return</span>{" "}
-                        <span className="text-orange-400">items</span>
-                        <span className="text-blue-400">.reduce</span>
-                        <span className="text-gray-400">((</span>
-                        <span className="text-orange-400">sum</span>
-                        <span className="text-gray-400">,</span>{" "}
-                        <span className="text-orange-400">item</span>
-                        <span className="text-gray-400">) =></span>{" "}
-                        <span className="text-orange-400">sum</span>{" "}
-                        <span className="text-gray-400">+</span>{" "}
-                        <span className="text-orange-400">item</span>
-                        <span className="text-blue-400">.price</span>
-                        <span className="text-gray-400">,</span>{" "}
-                        <span className="text-blue-400">0</span>
-                        <span className="text-gray-400">);</span>
-                        <br />
-                        <span className="text-gray-400">{`}`}</span>
-                      </code>
+                    <code className="text-gray-200">
+  <span className="text-purple-400">function</span>{" "}
+  <span className="text-blue-400">calculateTotal</span>
+  <span className="text-gray-400">(</span>
+  <span className="text-orange-400">items</span>
+  <span className="text-gray-400">) &#123;</span>
+  <br />
+  {"  "}
+  <span className="text-purple-400">return</span>{" "}
+  <span className="text-orange-400">items</span>
+  <span className="text-blue-400">.reduce</span>
+  <span className="text-gray-400">((</span>
+  <span className="text-orange-400">sum</span>
+  <span className="text-gray-400">,</span>{" "}
+  <span className="text-orange-400">item</span>
+  <span className="text-gray-400">
+    {") =&gt; "}
+  </span>
+  <span className="text-orange-400">sum</span>{" "}
+  <span className="text-gray-400">+</span>{" "}
+  <span className="text-orange-400">item</span>
+  <span className="text-blue-400">.price</span>
+  <span className="text-gray-400">,</span>{" "}
+  <span className="text-blue-400">0</span>
+  <span className="text-gray-400">);</span>
+  <br />
+  <span className="text-gray-400">&#125;</span>
+</code>
+
                     </pre>
                     <div className="mt-4 p-4 bg-green-900/20 border border-green-900/30 rounded-lg">
                       <h3 className="text-green-500 flex items-center gap-1 font-semibold">

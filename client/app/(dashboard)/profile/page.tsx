@@ -164,13 +164,17 @@ export default function ProfilePage() {
                       <FormItem>
                         <FormLabel>Full Name</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            placeholder="Enter your name"
-                            disabled={isUpdatingProfile}
-                            className="max-w-md"
-                            icon={<UserIcon className="h-4 w-4 text-muted-foreground" />}
-                          />
+                          <div className="relative max-w-md">
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                              <UserIcon className="h-4 w-4 text-muted-foreground" />
+                            </span>
+                            <Input
+                              {...field}
+                              placeholder="Enter your name"
+                              disabled={isUpdatingProfile}
+                              className="pl-10 max-w-md"
+                            />
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -184,14 +188,18 @@ export default function ProfilePage() {
                       <FormItem>
                         <FormLabel>Email Address</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            type="email"
-                            placeholder="Enter your email"
-                            disabled={isUpdatingProfile}
-                            className="max-w-md"
-                            icon={<Mail className="h-4 w-4 text-muted-foreground" />}
-                          />
+                          <div className="relative max-w-md">
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                              <Mail className="h-4 w-4 text-muted-foreground" />
+                            </span>
+                            <Input
+                              {...field}
+                              type="email"
+                              placeholder="Enter your email"
+                              disabled={isUpdatingProfile}
+                              className="pl-10 max-w-md"
+                            />
+                          </div>
                         </FormControl>
                         <FormDescription>
                           We'll never share your email with anyone else.
@@ -295,14 +303,18 @@ export default function ProfilePage() {
                       <FormItem>
                         <FormLabel>Current Password</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            type="password"
-                            placeholder="Enter your current password"
-                            disabled={isUpdatingPassword}
-                            className="max-w-md"
-                            icon={<Lock className="h-4 w-4 text-muted-foreground" />}
-                          />
+                          <div className="relative max-w-md">
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                              <Lock className="h-4 w-4 text-muted-foreground" />
+                            </span>
+                            <Input
+                              {...field}
+                              type="password"
+                              placeholder="Enter your current password"
+                              disabled={isUpdatingPassword}
+                              className="pl-10 max-w-md"
+                            />
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -322,7 +334,7 @@ export default function ProfilePage() {
                             placeholder="Enter your new password"
                             disabled={isUpdatingPassword}
                             className="max-w-md"
-                            icon={<Lock className="h-4 w-4 text-muted-foreground" />}
+                            // icon={<Lock className="h-4 w-4 text-muted-foreground" />}
                           />
                         </FormControl>
                         <FormDescription>
@@ -346,7 +358,7 @@ export default function ProfilePage() {
                             placeholder="Confirm your new password"
                             disabled={isUpdatingPassword}
                             className="max-w-md"
-                            icon={<Lock className="h-4 w-4 text-muted-foreground" />}
+                            // icon={<Lock className="h-4 w-4 text-muted-foreground" />}
                           />
                         </FormControl>
                         <FormMessage />

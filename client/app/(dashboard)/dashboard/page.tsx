@@ -158,10 +158,17 @@ export default function DashboardPage() {
               {usageStats ? Math.round((usageStats.totalRequests / usageStats.requestLimit) * 100) : 0}%
             </div>
             <div className="mt-2">
-              <Progress 
-                value={usageStats ? (usageStats.totalRequests / usageStats.requestLimit) * 100 : 0} 
-                className="h-2"
-              />
+             <Progress 
+  value={
+    usageStats && 
+    typeof usageStats.totalRequests === 'number' &&
+    typeof usageStats.requestLimit === 'number' &&
+    usageStats.requestLimit > 0
+      ? (usageStats.totalRequests / usageStats.requestLimit) * 100
+      : 0
+  }
+  className="h-2"
+/>
             </div>
           </CardContent>
         </Card>
