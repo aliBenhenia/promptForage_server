@@ -12,6 +12,7 @@ export const authService = {
     
     // Mock implementation
     const response = await api.post('/api/auth/login', credentials);
+    localStorage.setItem('email', response.data.user.email);
     localStorage.setItem('user', JSON.stringify(response.data.user));
     console.log('Login response:', response.data.user);
     localStorage.setItem('token', response.data.token);
@@ -30,6 +31,7 @@ export const authService = {
     
     // Mock implementation
     const response = await api.post('/api/auth/register', credentials);
+    localStorage.setItem('email', response.data.user.email);
     return response.data;
   },
   

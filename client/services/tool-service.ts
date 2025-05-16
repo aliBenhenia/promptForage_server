@@ -117,19 +117,11 @@ export const toolService = {
   },
   
   async getRequestHistory(): Promise<PromptRequest[]> {
-    // In a real implementation, this would call the backend API
-    // For now, we'll use the sample data
-    
-    // Uncomment below when backend is ready
-    const userL = localStorage.getItem('user');
-    // const user = userL ? JSON.parse(userL) : null;
-    const user = userL ? JSON.parse(userL) : null;
-    console.log(user.email);
-    // if (!user)
-    //   return ;
+    const email = localStorage.getItem('email');
+   
 
-   const response = await api.post('/api/tools/history', {
-  email: user.email,
+    const response = await api.post('/api/tools/history', {
+    email: email,
 });
 console.log("my list=> ",response.data);
 return response.data;

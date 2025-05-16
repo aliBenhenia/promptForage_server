@@ -59,8 +59,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const { user, token } = await authService.register({name, email, password});
       localStorage.setItem('token', token);
+      localStorage.removeItem('user');
       setUser(user);
-      router.push('/dashboard');
+      router.push('/login');
     } catch (error) {
       throw error;
     } finally {
@@ -70,12 +71,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setUser(null);
     router.push('/login');
   };
   const updateProfile = async (name: string, email: string) => {
       try {
         const updatedUser = await userService.updateProfile(name, email);
+        localStorage.setItem('email', updatedUser.email);
         setUser(updatedUser);
       } catch (error) {
         console.error('Error updating profile:', error);
