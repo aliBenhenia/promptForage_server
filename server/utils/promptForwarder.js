@@ -2,7 +2,8 @@
 const fetch = require('node-fetch');
 
 // Use a secure environment variable for your API key
-const OPENROUTER_API_KEY = process.env.OPENROUTER_KEY;
+// const OPENROUTER_API_KEY = process.env.OPENROUTER_KEY;
+const OPENROUTER_API_KEY = "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";
 const SITE_URL = process.env.SITE_URL || 'https://promptforge.dev';
 const SITE_NAME = 'PromptForge AI Assistant';
 
@@ -52,6 +53,7 @@ Ensure the regex is efficient and compatible with JavaScript.`,
 
 // Process prompts using DeepSeek AI or fallback to mock
 async function processPrompt(toolId, prompt) {
+  console.log('Processing prompt:', OPENROUTER_API_KEY);
   if (!OPENROUTER_API_KEY) {
     console.warn('API key not set — using mock response');
     return getMockResponse(toolId, prompt);
