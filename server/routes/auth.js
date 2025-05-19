@@ -225,106 +225,26 @@ router.post(
 );
 
 
-const axios = require('axios');
-
 // @route   GET /api/auth/github
-// @desc    Redirect to GitHub OAuth
-router.get('/github', (req, res) => {
-  const clientId = "Ov23lic0HqtUxAk8MZ1w";
-  const redirectUri = "https://promptforge-production-f875.up.railway.app/api/auth/github/callback";
-  const scope = 'user:email';
-
-  const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
-  res.redirect(githubAuthUrl);
-});
+// @desc    Redirect user to GitHub for authentication
+router.get('/github', passport.authenticate('github', { scope: ['user:email'] }));
 
 // @route   GET /api/auth/github/callback
-// @desc    GitHub OAuth callback
-router.get('/github/callback', async (req, res) => {
-  const { code } = req.query;
-
-  if (!code) {
-    return res.status(400).json({ error: 'No code provided' });
-  }
-
-  try {
-    // 1. Get GitHub access token
-    const tokenResponse = await axios.post(
-      `https://github.com/login/oauth/access_token`,
-      {
-        client_id: process.env.GITHUB_CLIENT_ID,
-        client_secret: process.env.GITHUB_CLIENT_SECRET,
-        code,
-      },
-      {
-        headers: {
-          Accept: 'application/json',
-        },
-      }
+// @desc    GitHub will redirect here after login
+router.get(
+  '/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  (req, res) => {
+    const user = req.user;
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET || 'your_jwt_secret',
+      { expiresIn: '7d' }
     );
 
-    const accessToken = tokenResponse.data.access_token;
-    if (!accessToken) {
-      return res.status(400).json({ error: 'Failed to retrieve access token' });
-    }
-
-    // 2. Get user info
-    const githubUser = await axios.get('https://api.github.com/user', {
-      headers: {
-        Authorization: `token ${accessToken}`,
-      },
-    });
-
-    const { login, email: primaryEmail, name } = githubUser.data;
-
-    // 3. Get public email if not present
-    let email = primaryEmail;
-    if (!email) {
-      const emailsRes = await axios.get('https://api.github.com/user/emails', {
-        headers: {
-          Authorization: `token ${accessToken}`,
-        },
-      });
-      const primary = emailsRes.data.find((e) => e.primary && e.verified);
-      email = primary?.email || `${login}@github.local`; // fallback
-    }
-
-    // 4. Check if user exists
-    let user = await User.findOne({ email });
-
-    if (!user) {
-      // Register new user
-      user = new User({
-        name: name || login,
-        email,
-        password: Math.random().toString(36).slice(-8), // dummy password
-      });
-      await user.save();
-    }
-
-    // 5. Create token
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'your_jwt_secret', {
-      expiresIn: '7d',
-    });
-
-    // 6. Send token + user
-    res.json({
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        requestsUsed: 0,
-        requestLimit: user.requestLimit,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-        is2FAEnabled: user.is2FAEnabled,
-      },
-      token,
-    });
-  } catch (error) {
-    console.error('GitHub auth error:', error);
-    res.status(500).json({ error: 'GitHub authentication failed' });
+    // You can redirect to frontend or send token + user info
+    res.redirect(`https://prompt-forge-six.vercel.app/github-success?token=${token}`);
   }
-});
+);
 
 module.exports = router;
