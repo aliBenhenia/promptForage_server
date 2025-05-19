@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { User as UserIcon, Mail, Lock, Save, Loader2 } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -23,7 +23,7 @@ import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/context/auth-context';
 import userService from '@/services/user-service';
-
+import { authService } from '@/services/auth-service';
 const profileFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
@@ -46,7 +46,44 @@ export default function ProfilePage() {
   const { toast } = useToast();
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
   const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
-  
+  const [is2FAEnabled, setIs2FAEnabled] = useState(false);
+  const [is2FAToggleLoading, setIs2FAToggleLoading] = useState(false);
+
+  useEffect(() => {
+    
+    const get2FAStatus = async () => {
+      try {
+        const response = await authService.get2FAStatus();
+        setIs2FAEnabled(response.is2FAEnabled);
+
+      } catch (error) {
+        console.error('Error fetching 2FA status:', error);
+      }
+    }
+    get2FAStatus();
+  }, []);
+  const handle2FAToggle = async () => {
+    setIs2FAToggleLoading(true);
+    try {
+      const response = await authService.toggle2FA(!is2FAEnabled);
+      setIs2FAEnabled(response.is2FAEnabled);
+      toast({
+        title: 'Success',
+        description: `Two-Factor Authentication has been ${response.is2FAEnabled ? 'enabled' : 'disabled'}.`,
+      });
+      
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'There was an error updating your 2FA status. Please try again.',
+        variant: 'destructive',
+      });
+    }
+    finally {
+      setIs2FAToggleLoading(false);
+    }
+  }
+
   const profileForm = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
@@ -67,14 +104,7 @@ export default function ProfilePage() {
   const onProfileSubmit = async (data: ProfileFormValues) => {
     setIsUpdatingProfile(true);
     
-    // Simulate API call
-    // setTimeout(() => {
-    //   toast({
-    //     title: 'Profile updated',
-    //     description: 'Your profile has been updated successfully.',
-    //   });
-    //   setIsUpdatingProfile(false);
-    // }, 1000);
+   
     
      try {
       setIsUpdatingProfile(true);
@@ -401,7 +431,22 @@ export default function ProfilePage() {
                   <p className="text-sm text-muted-foreground mb-4">
                     Add an extra layer of security to your account by enabling two-factor authentication.
                   </p>
-                  <Button variant="outline">Enable 2FA</Button>
+                  <Button 
+                    variant="outline" 
+                    onClick={handle2FAToggle} 
+                    disabled={is2FAToggleLoading}
+                  >
+                    {is2FAToggleLoading ? (
+                     <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Loading...
+                      </>
+                    ) : is2FAEnabled ? (
+                      'Disable 2FA'
+                    ) : (
+                      'Enable 2FA'
+                    )}
+                  </Button>
                 </div>
                 
                 <div className="bg-muted/50 p-4 rounded-md">

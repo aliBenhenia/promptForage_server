@@ -44,6 +44,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true);
     try {
       const { user, token } = await authService.login({email, password});
+       if (user.is2FAEnabled) {
+         localStorage.setItem('userId', user.id);
+        router.push('/2fa');
+        return;
+      }
       localStorage.setItem('token', token);
       setUser(user);
       router.push('/dashboard');

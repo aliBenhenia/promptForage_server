@@ -36,6 +36,18 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  is2FAEnabled: {
+    type: Boolean,
+    default: false,
+  },
+  email2Facode: {
+    type: String,
+    default: null,
+  },
+  emailExpiry: {
+    type: Date,
+    default: null,
+  },
 });
 
 // Hash password before saving

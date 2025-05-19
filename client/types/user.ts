@@ -6,6 +6,7 @@ export interface User {
   requestLimit: number;
   createdAt: string;
   updatedAt: string;
+  is2FAEnabled: boolean;
 }
 
 export interface AuthResponse {

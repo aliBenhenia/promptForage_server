@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 5000;
 
 // MongoDB connection
 const mongo_uri = process.env.MONGO_URI || "mongodb+srv://alibenhenia1:3TkEK63GFAfL8ZZf@cluster0.l3xb1ca.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-mongoose.connect("mongodb+srv://alibenhenia1:3TkEK63GFAfL8ZZf@cluster0.l3xb1ca.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
+mongoose.connect(mongo_uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

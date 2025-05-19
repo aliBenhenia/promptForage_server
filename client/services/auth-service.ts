@@ -44,4 +44,35 @@ export const authService = {
     return response.data;
     
   },
+  async get2FAStatus(): Promise<{ is2FAEnabled: boolean }> {
+    // In a real implementation, this would call the backend API
+    // For now, we'll use a simulated response
+    
+    // Uncomment below when backend is ready
+    const response = await api.get('/api/auth/2fa-status');
+    return response.data;
+    
+  },
+  async toggle2FA(enable:boolean): Promise<{ is2FAEnabled: boolean }> {
+    // In a real implementation, this would call the backend API
+    // For now, we'll use a simulated response
+    
+    // Uncomment below when backend is ready
+    const response = await api.post('/api/auth/toggle-2fa', { enable });
+    return response.data;
+
+  },
+  async verify2FA(code: string): Promise<{ token: string , user: User }> {
+    // In a real implementation, this would call the backend API
+    // For now, we'll use a simulated response
+    
+    // Uncomment below when backend is ready
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      throw new Error('User ID not found in local storage');
+    }
+    const response = await api.post('/api/auth/verify-2fa', { code,userId });
+    return response.data;
+    
+  },
 };
