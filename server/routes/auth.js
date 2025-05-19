@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const router = express.Router();
 const send2FACode = require('../utils/email').send2FACode;
+const passport = require('passport');
+
 // @route   POST /api/auth/register
 // @desc    Register a new user
 // @access  Public
