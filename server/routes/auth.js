@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const router = express.Router();
 const send2FACode = require('../utils/email').send2FACode;
-const passport = require('passport');
 
 // @route   POST /api/auth/register
 // @desc    Register a new user
@@ -227,26 +226,5 @@ router.post(
 );
 
 
-// @route   GET /api/auth/github
-// @desc    Redirect user to GitHub for authentication
-router.get('/github', passport.authenticate('github', { scope: ['user:email'] }));
-
-// @route   GET /api/auth/github/callback
-// @desc    GitHub will redirect here after login
-router.get(
-  '/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
-  (req, res) => {
-    const user = req.user;
-    const token = jwt.sign(
-      { id: user._id },
-      process.env.JWT_SECRET || 'your_jwt_secret',
-      { expiresIn: '7d' }
-    );
-
-    // You can redirect to frontend or send token + user info
-    res.redirect(`https://prompt-forge-six.vercel.app/github-success?token=${token}`);
-  }
-);
 
 module.exports = router;

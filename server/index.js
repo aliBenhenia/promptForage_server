@@ -22,14 +22,7 @@ dotenv.config();
 // Initialize express app
 const app = express();
 const PORT = process.env.PORT || 5000;
-const passport = require('passport');
-require('./config/passport'); // this initializes GitHub strategy
 
-app.use(passport.initialize());
-app.use(passport.session());
-const session = require('express-session');
-app.use(session({ secret: process.env.JWT_SECRET
-  , resave: false, saveUninitialized: true }));
 
 // MongoDB connection
 const mongo_uri = process.env.MONGO_URI || "mongodb+srv://alibenhenia1:3TkEK63GFAfL8ZZf@cluster0.l3xb1ca.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
