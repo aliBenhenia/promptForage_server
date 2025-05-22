@@ -233,15 +233,7 @@ export default function RegisterPage() {
 
           {/* GitHub OAuth Button */}
           <div className="mt-6">
-            <Button
-              variant="outline"
-              className="w-full flex items-center justify-center gap-2"
-              onClick={handleGitHubLogin}
-              disabled={isLoading}
-            >
-              <Github className="h-5 w-5" />
-              Sign in with GitHub
-            </Button>
+            
           </div>
         </div>
       </div>

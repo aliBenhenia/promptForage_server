@@ -1,3 +1,7 @@
+Great! Here’s your improved `README.md` with the deployment details added clearly and professionally:
+
+---
+
 # 🔮 PromptForge – AI-Powered Developer Toolkit
 
 PromptForge is a modern web-based toolkit designed to **boost developer productivity** with AI-powered utilities. It provides smart, context-aware tools such as **code explanation**, **bug fixing**, and **regex generation**, all inside a clean and responsive interface.
@@ -19,35 +23,24 @@ Built using the **MERN stack**, integrated with **DeepSeek** and **OpenAI**, and
 
 ## 🛠️ Tech Stack
 
-| Category         | Technologies Used                                                                 |
-| ---------------- | --------------------------------------------------------------------------------- |
-| Frontend         | `Next.js`, `React`, `TypeScript`, `TailwindCSS`                                   |
-| Backend          | `Express.js`, `Node.js`, `MongoDB`, `Mongoose`                                    |
-| Authentication   | `JWT`                                        |
-| AI Integration   |  `DeepSeek API` (for code understanding and assistant functionality) |
-| State Management | `Context API`, `useReducer`                                                       |
-| Styling          | `Tailwind CSS`, `Responsive Design`                                               |
+| Category         | Technologies Used                                                           |
+| ---------------- | --------------------------------------------------------------------------- |
+| Frontend         | `Next.js`, `React`, `TypeScript`, `TailwindCSS`                             |
+| Backend          | `Express.js`, `Node.js`, `MongoDB`, `Mongoose`                              |
+| Authentication   | `JWT`, `Role-Based Access Control (RBAC)`                                   |
+| AI Integration   | `DeepSeek API`, `OpenAI API`                                                |
+| State Management | `Context API`, `useReducer`                                                 |
+| Styling          | `Tailwind CSS`, `Responsive Design`                                         |
+| Deployment       | **Frontend**: Vercel<br>**Backend**: Railway<br>**Database**: MongoDB Atlas |
 
 ---
-
-
 
 ## 📁 Project Structure (Simplified)
 
 ```
 PromptForge/
 ├── client/ (Next.js frontend)
-│   ├── components/
-│   ├── pages/
-│   ├── styles/
-│   └── utils/
-├── server/ (Express.js backend)
-│   ├── controllers/
-│   ├── routes/
-│   ├── models/
-│   └── middleware/
-├── .env
-├── package.json
+├── server/ (Express backend)
 └── README.md
 ```
 
@@ -80,7 +73,7 @@ PromptForge/
 
 4. **Set environment variables** in `.env` for both frontend and backend:
 
-   ```
+   ```env
    OPENAI_API_KEY=your_key_here
    JWT_SECRET=your_secret_key
    MONGO_URI=your_mongo_connection_string
@@ -104,3 +97,4 @@ Feel free to fork, open a PR, or submit feedback.
 ## 📜 License
 
 This project is licensed under the **MIT License**.
+
