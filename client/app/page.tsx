@@ -57,6 +57,9 @@ export default function Home() {
                   <pre className="font-mono text-xs sm:text-sm md:text-base bg-black/80 rounded-lg p-4 overflow-x-auto">
                     <code className="text-gray-200">
                       {/* code snippet here */}
+                                  {`function calculateTotal(items) {
+              return items.reduce((sum, item) => sum + item.price, 0);
+            }`}
                     </code>
                   </pre>
                   <div className="mt-4 p-4 bg-green-900/20 border border-green-900/30 rounded-lg">
