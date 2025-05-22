@@ -54,14 +54,14 @@ export default function Home() {
               <div className="absolute top-10 -right-10 w-64 h-64 bg-indigo-500/40 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000"></div>
               <div className="relative flex items-center justify-center">
                 <div className="bg-card/70 backdrop-blur-md border border-border rounded-2xl shadow-2xl p-6 w-full max-w-md hover:scale-105 transition-transform">
-                  <pre className="font-mono text-xs sm:text-sm md:text-base bg-black/80 rounded-lg p-4 overflow-x-auto">
-                    <code className="text-gray-200">
-                      {/* code snippet here */}
-                                  {`function calculateTotal(items) {
-              return items.reduce((sum, item) => sum + item.price, 0);
-            }`}
-                    </code>
-                  </pre>
+                 <pre className="font-mono text-xs sm:text-sm md:text-base bg-[#1e1e1e] rounded-lg p-4 overflow-x-auto text-gray-100 leading-relaxed">
+  <code>
+    <span className="text-blue-400">function</span> <span className="text-green-400">calculateTotal</span>(items) {'{'}{'\n'}
+    &nbsp;&nbsp;<span className="text-purple-400">return</span> items.<span className="text-yellow-400">reduce</span>((sum, item) =&gt; sum + item.price, <span className="text-orange-400">0</span>);{'\n'}
+    {'}'}
+  </code>
+</pre>
+
                   <div className="mt-4 p-4 bg-green-900/20 border border-green-900/30 rounded-lg">
                     <h3 className="text-green-500 flex items-center gap-1 font-semibold">
                       <Sparkles className="h-4 w-4" /> AI Explanation
