@@ -1,7 +1,3 @@
-y:
-
----
-
 # 🔮 PromptForge – AI-Powered Developer Toolkit
 
 PromptForge is a modern web-based toolkit designed to **boost developer productivity** with AI-powered utilities. It provides smart, context-aware tools such as **code explanation**, **bug fixing**, and **regex generation**, all inside a clean and responsive interface.
