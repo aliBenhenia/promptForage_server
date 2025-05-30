@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-const SecretKey = process.env.JWT_SECRET || 'your_default_secret_key';
+const SecretKey = process.env.JWT_SECRET;
 const auth = async (req, res, next) => {
   try {
     // Get token from header

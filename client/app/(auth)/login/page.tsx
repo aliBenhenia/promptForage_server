@@ -154,24 +154,7 @@ export default function LoginPage() {
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-border" />
                 </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="bg-background px-2 text-muted-foreground">
-                    Demo credentials
-                  </span>
-                </div>
-              </div>
-              
-              <div className="mt-4 bg-muted p-4 rounded-md">
-                <div className="flex items-start">
-                  <AlertCircle className="h-5 w-5 text-muted-foreground mr-2 mt-0.5" />
-                  <div className="text-sm text-muted-foreground">
-                    <p>Use the following credentials for demo:</p>
-                    <ul className="mt-2 list-disc list-inside pl-2">
-                      <li>Email: <span className="font-mono">demo@example.com</span></li>
-                      <li>Password: <span className="font-mono">password123</span></li>
-                    </ul>
-                  </div>
-                </div>
+               
               </div>
             </div>
           </div>

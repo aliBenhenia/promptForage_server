@@ -6,6 +6,8 @@ const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
+dotenv.config();
+
 // Routes
 const authRoutes = require('./routes/auth');
 const toolsRoutes = require('./routes/tools');
@@ -16,7 +18,6 @@ const statsRoutes = require('./routes/stats');
 const authMiddleware = require('./middleware/auth');
 
 // Load environment variables
-dotenv.config();
 
 
 // Initialize express app
@@ -25,7 +26,7 @@ const PORT = process.env.PORT || 5000;
 
 
 // MongoDB connection
-const mongo_uri = process.env.MONGO_URI || "mongodb+srv://alibenhenia1:3TkEK63GFAfL8ZZf@cluster0.l3xb1ca.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const mongo_uri = process.env.MONGO_URI ;
 mongoose.connect(mongo_uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
