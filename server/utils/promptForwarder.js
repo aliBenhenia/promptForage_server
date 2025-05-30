@@ -3,8 +3,6 @@ const fetch = require('node-fetch');
 
 // Use a secure environment variable for your API key
 const OPENROUTER_API_KEY = process.env.OPENROUTER_KEY;
-// const OPENROUTER_API_KEY = "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";
-
 const SITE_URL = process.env.SITE_URL || 'https://promptforge.dev';
 const SITE_NAME = 'PromptForge AI Assistant';
 
@@ -82,7 +80,12 @@ async function processPrompt(toolId, prompt) {
         ]
       })
     });
-
+    if (!response.ok)
+      throw new Error(`API request failed with status ${response.status}`);
+    else if (response.status === 429)
+      throw new Error('Rate limit exceeded. Please try again later.');
+    else if (response.status === 500)
+      throw new Error('Internal server error. Please try again later.');
     const data = await response.json();
     console.log('AI response:', data);
     return data.choices?.[0]?.message?.content || 'No response content';
